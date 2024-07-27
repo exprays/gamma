@@ -1,14 +1,18 @@
 package main
 
 import (
-	"log"
 	"gamma/src/server"
+	"log"
 )
 
 func main() {
-	s := server.NewServer(":8080")
-	log.Println("Starting server on :8080")
-	err := s.Start()
+	s, err := server.NewServer(":8080", ":8081")
+	if err != nil {
+		log.Fatalf("Failed to create server: %v", err)
+	}
+
+	log.Println("Starting server...")
+	err = s.Start()
 	if err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
